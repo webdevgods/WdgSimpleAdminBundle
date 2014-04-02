@@ -2,95 +2,145 @@
 return array(
     'router' => array(
         'routes' => array(
-            'wdgadmin' => array(
+            'zfcuser' => array(
                 'type' => 'Literal',
+                'priority' => 1000,
                 'options' => array(
-                    'route' => '/wdgadmin',
+                    'route' => '/admin/user',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'WdgAdmin\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
+                        'controller' => 'WdgSimpleAdminBundle\Controller\User',
+                        'action'     => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'user' => array(
-                        'type' => 'literal',
+                    'login' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/login',
+                            'defaults' => array(
+                                'controller' => 'zfcuser',
+                                'action'     => 'login',
+                            ),
+                        ),
+                    ),
+                    'authenticate' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/authenticate',
+                            'defaults' => array(
+                                'controller' => 'zfcuser',
+                                'action'     => 'authenticate',
+                            ),
+                        ),
+                    ),
+                    'logout' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/logout',
+                            'defaults' => array(
+                                'controller' => 'zfcuser',
+                                'action'     => 'logout',
+                            ),
+                        ),
+                    ),
+                    'register' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/register',
+                            'defaults' => array(
+                                'controller' => 'zfcuser',
+                                'action'     => 'register',
+                            ),
+                        ),
+                    ),
+                    'changepassword' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/change-password',
+                            'defaults' => array(
+                                'controller' => 'zfcuser',
+                                'action'     => 'changepassword',
+                            ),
+                        ),                        
+                    ),
+                    'changeemail' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/change-email',
+                            'defaults' => array(
+                                'controller' => 'zfcuser',
+                                'action' => 'changeemail',
+                            ),
+                        ),                        
+                    ),
+                ),
+            ),
+            'zfcadmin' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route'    => '/admin',
+                    'defaults' => array(
+                        'controller' => 'WdgSimpleAdminBundle\Controller\Index',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'zfcuseradmin' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
                         'options' => array(
                             'route' => '/user',
                             'defaults' => array(
-                                'controller' => 'WdgAdmin\Controller\User',
-                                'action' => 'list'
-                            )
+                                'controller' => 'zfcuseradmin',
+                                'action'     => 'index',
+                            ),
                         ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'mine' => array(
-                                'type' => 'Literal',
+                        'child_routes' =>array(
+                            'list' => array(
+                                'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/mine',
+                                    'route' => '/list[/:p]',
                                     'defaults' => array(
-                                        'controller' => 'WdgAdmin\Controller\User',
-                                        'action'     => 'mine',
+                                        'controller' => 'zfcuseradmin',
+                                        'action'     => 'list',
                                     ),
                                 ),
                             ),
-                            'add' => array(
+                            'create' => array(
                                 'type' => 'Literal',
                                 'options' => array(
-                                    'route' => '/add',
+                                    'route' => '/create',
                                     'defaults' => array(
-                                        'controller' => 'WdgAdmin\Controller\User',
-                                        'action' => 'add'
-                                    )
+                                        'controller' => 'zfcuseradmin',
+                                        'action'     => 'create'
+                                    ),
                                 ),
-                                'may_terminate' => true,
-                            ),
-                            'list' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/list',
-                                    'defaults' => array(
-                                        'controller' => 'WdgAdmin\Controller\User',
-                                        'action' => 'list'
-                                    )
-                                ),
-                                'may_terminate' => true,
-                            ),
-                            'show' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/show[/:id]',
-                                    'defaults' => array(
-                                        'controller' => 'WdgAdmin\Controller\User',
-                                        'action' => 'show'
-                                    )
-                                ),
-                                'may_terminate' => true,
                             ),
                             'edit' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/edit[/:id][/:redirect]',
+                                    'route' => '/edit/:userId',
                                     'defaults' => array(
-                                        'controller' => 'WdgAdmin\Controller\User',
-                                        'action' => 'edit'
-                                    )
+                                        'controller' => 'zfcuseradmin',
+                                        'action'     => 'edit',
+                                        'userId'     => 0
+                                    ),
                                 ),
-                                'may_terminate' => true,
                             ),
-                            'delete' => array(
+                            'remove' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/delete[/:id]',
+                                    'route' => '/remove/:userId',
                                     'defaults' => array(
-                                        'controller' => 'WdgAdmin\Controller\User',
-                                        'action' => 'delete'
-                                    )
+                                        'controller' => 'zfcuseradmin',
+                                        'action'     => 'remove',
+                                        'userId'     => 0
+                                    ),
                                 ),
-                                'may_terminate' => true,
                             ),
-                        )
+                        ),
                     ),
                 ),
             ),

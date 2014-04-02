@@ -1,0 +1,12 @@
+<?php
+return array(
+    "wdg-simple-admin-bundle" => array(
+        "copyright_company",
+        "auth" => array(
+            "whitelist" => array(
+                //Add routes here that dont require auth
+                'zfcuser/login'
+            )
+        )
+    )
+);

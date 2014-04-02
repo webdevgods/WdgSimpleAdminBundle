@@ -1,6 +1,7 @@
 <?php
 return array(
     'invokables' => array(
-        'WdgAdmin\Controller\Index' => 'WdgAdmin\Controller\IndexController',
+        'WdgSimpleAdminBundle\Controller\Index' => 'WdgSimpleAdminBundle\Controller\IndexController',
+        'WdgSimpleAdminBundle\Controller\User' => 'WdgSimpleAdminBundle\Controller\UserController',
     ),
 );
