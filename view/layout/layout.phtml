@@ -67,6 +67,10 @@
       </div>
     </div>
     <div class="container">
+        <div>
+            <?php echo $this->flashMessenger()->render("success", array('alert', 'alert-success' , 'unstyled'));?>
+            <?php echo $this->flashMessenger()->render("error", array('alert', 'alert-error' , 'unstyled'));?>
+        </div>
       <?php echo $this->content; ?>
       <hr>
       <footer>
